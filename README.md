@@ -5,6 +5,9 @@ yarn
 ```
 
 # Lancement
+```bash
+yarn start
+```
 
 http://localhost:9000/
 
