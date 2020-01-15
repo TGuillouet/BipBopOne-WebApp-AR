@@ -31,4 +31,9 @@ describe('Get uri params', function() {
 		}
 		expect(JSON.stringify(getUrlParams())).toBe(JSON.stringify(expected));
 	});
+
+	it('Test if we do not have any query params', function() {
+		window.location.href = "http://localhost:9000/"
+		expect(JSON.stringify(getUrlParams())).toBe(JSON.stringify({}))
+	})
 });
