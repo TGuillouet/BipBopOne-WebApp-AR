@@ -1,5 +1,5 @@
-import ObjModel from './ObjModel';
-import GltfModel from './GltfModel';
+import ObjModel from './ObjModel'
+import GltfModel from './GltfModel'
 
 /**
  * Supported extensions

@@ -20,7 +20,7 @@ export function getUrlParams() {
         .split(QUERY_PARAM_SEPARATOR)
         .map((uriElement) => {
             const [ key, value ] = uriElement.split(QUERY_PARAM_KEYVAL_SEPARATOR)
-            return { [key]: decodeURI(value) };
+            return { [key]: decodeURI(value) }
         })
         .reduce((total, current) => ({ ...total, ...current }), {})
 }

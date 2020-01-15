@@ -1,3 +1,3 @@
 export default {
-    PERMISSION_DENIED: "perission-denied",
+    PERMISSION_DENIED: "permission-denied",
 }

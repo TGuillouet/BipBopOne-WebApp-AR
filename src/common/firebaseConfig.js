@@ -7,6 +7,7 @@ const {
     FIREBASE_MESSENGING_SENDER_ID,
     FIREBASE_APP_ID,
     FIREBASE_MEASUREMENT_ID
+// eslint-disable-next-line no-undef
 } = process.env
 
 export function getFirebaseConfig() {

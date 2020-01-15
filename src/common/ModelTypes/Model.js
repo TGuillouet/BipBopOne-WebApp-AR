@@ -15,21 +15,21 @@ export default class Model {
     }
 
     createInFrame(frame) {
-        frame.appendChild(this.createAsset());
+        frame.appendChild(this.createAsset())
 
-        let entity = this.createEntity();
+        let entity = this.createEntity()
         if (this.modelInfos.parameters) entity = this.applyEntityParameters(entity)
 
-        frame.appendChild(entity);
+        frame.appendChild(entity)
     }
 
     applyEntityParameters(entity) {
-        const { parameters } = this.modelInfos;
+        const { parameters } = this.modelInfos
 
         Object.keys(parameters).forEach(key => {
             let value = parameters[key]
-            entity.setAttribute(key, value);
-        });
+            entity.setAttribute(key, value)
+        })
         
         return entity
     }
