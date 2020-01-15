@@ -15,7 +15,11 @@ const env = Object.keys(process.env).reduce((acc, curr) => {
 module.exports = {
   module: {
     rules: [
-      { test: /\.txt$/, use: 'raw-loader' }
+      { test: /\.txt$/, use: 'raw-loader' },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      }
     ]
   },
   mode: "development",
