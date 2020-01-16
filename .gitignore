@@ -1,0 +1,10 @@
+# Yarn
+yarn.lock
+yarn-error.log
+
+# Node
+node_modules/
+
+# Project
+.env
+dist/
