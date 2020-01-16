@@ -21,6 +21,11 @@
       }
     </style>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
     <!-- include A-Frame obviously -->
     <script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>
     <!-- include ar.js for A-Frame -->
@@ -31,25 +36,24 @@
   <div id="splash">
     <p>Loading...</p>
   </div>
-
-  <a-scene arjs id="frame" vr-mode-ui="enabled: false" loading-screen="dotsColor: red; backgroundColor: black">
+  
+  <a-scene embedded arjs id="frame" vr-mode-ui="enabled: false">
     <a-marker-camera preset='hiro'></a-marker-camera>
   </a-scene>
 
-  <!-- Error modal -->
-  <div id="modal" class="modal hide" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+  <!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
       <div class="modal-content">
+        <!-- Modal body -->
         <div class="modal-body">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
           <p>Error message</p>
-          <button type="button" class="btn btn-primary">Ok</button>
         </div>
       </div>
     </div>
   </div>
+  
 </body>
 
 </html>

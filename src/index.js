@@ -1,6 +1,5 @@
 import $ from 'jquery'
 import 'bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { firebase } from '@firebase/app'
 import '@firebase/firestore'
@@ -19,35 +18,33 @@ const { project, asset } = getUrlParams() // Getting the url's params
 
 // $("#modal").on("")
 
-// window.addEventListener("load", () => {
-document.getElementById('splash').style.display = 'none' // Hide the splash screen
+window.addEventListener("load", () => {
+	document.getElementById('splash').style.display = 'none' // Hide the splash screen
 
-getAsset(project, asset)
-	.then(async (e) => {
-		console.log(e)
-		// Load the model from the result fetched in the database
-		const model = new ModelFactory().makeModel({
-			name: e.name,
-			type: e.type,
-			model: e.model,
-			material: e.material,
-			parameters: {}
+	getAsset(project, asset)
+		.then((asset) => {
+			// Load the model from the result fetched in the database
+			const model = new ModelFactory().makeModel({
+				name: asset.name,
+				type: asset.type,
+				model: asset.model,
+				material: asset.material
+			})
+
+			model.createInFrame(frame) // Create the asset in the frame
 		})
-
-		model.createInFrame(frame) // Create the asset in the frame
-	})
-	.catch((error) => {
-		const modalContent = document.querySelector('.modal-body p')
-		switch (error.code) {
-			case FirebaseErrorCode.PERMISSION_DENIED:
-				console.error("Vous n'avez pas la permission de voir ce fichier")
-				modalContent.innerText = "Vous n'avez pas la permission de voir ce fichier"
-				break
-			default:
-				console.error("Une erreur inconnue s'est produite")
-				modalContent.innerText = "Une erreur inconnue s'est produite"
-				break
-		}
-		$('#modal').show('slow')
-	})
-// })
+		.catch((error) => {
+			const modalContent = document.querySelector('.modal-body p')
+			switch (error.code) {
+				case FirebaseErrorCode.PERMISSION_DENIED:
+					console.error("Vous n'avez pas la permission de voir ce fichier")
+					modalContent.innerText = "Vous n'avez pas la permission de voir ce fichier, veuillez en sélectionner un autre"
+					break
+				default:
+					console.error("Une erreur inconnue s'est produite")
+					modalContent.innerText = "Une erreur inconnue s'est produite, veuillez réessayer plus tard"
+					break
+			}
+			$('#myModal').modal("toggle")
+		})
+})
