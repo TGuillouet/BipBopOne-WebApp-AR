@@ -20,7 +20,7 @@ export default class Model {
         let entity = this.createEntity()
         if (this.modelInfos.parameters) entity = this.applyEntityParameters(entity)
 
-        frame.appendChild(entity)
+        frame.querySelector("#marker").appendChild(entity)
     }
 
     applyEntityParameters(entity) {

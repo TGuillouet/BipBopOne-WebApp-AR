@@ -1,14 +1,14 @@
-import jest from "jest";
-import { getUrlParams } from "../uri";
+import jest from "jest"
+import { getUrlParams } from "../common/uri"
 // const { getUriParams } = require("./../uri")
 
-delete window.location;
-window = Object.create(window);
+delete window.location
+window = Object.create(window)
 window.location = {
   port: '9000',
   protocol: 'http:',
   hostname: 'localhost'
-};
+}
 
 describe('Get uri params', function() {
 	beforeAll(() => {
@@ -20,8 +20,8 @@ describe('Get uri params', function() {
 			project: "test",
 			asset: "awssffOw\\"
 		}
-		expect(JSON.stringify(getUrlParams())).toBe(JSON.stringify(expected));
-	});
+		expect(JSON.stringify(getUrlParams())).toBe(JSON.stringify(expected))
+	})
 
 	it('Test if query params can be transformed into objects without any url encoded chars', function() {
 		window.location.href = "http://localhost:9000/?project=test&asset=awssffOw"
@@ -29,11 +29,11 @@ describe('Get uri params', function() {
 			project: "test",
 			asset: "awssffOw"
 		}
-		expect(JSON.stringify(getUrlParams())).toBe(JSON.stringify(expected));
-	});
+		expect(JSON.stringify(getUrlParams())).toBe(JSON.stringify(expected))
+	})
 
 	it('Test if we do not have any query params', function() {
 		window.location.href = "http://localhost:9000/"
 		expect(JSON.stringify(getUrlParams())).toBe(JSON.stringify({}))
 	})
-});
+})
