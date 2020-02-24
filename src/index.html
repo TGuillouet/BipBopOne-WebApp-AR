@@ -38,7 +38,8 @@
   </div>
   
   <a-scene embedded arjs id="frame" vr-mode-ui="enabled: false">
-    <a-marker-camera preset='hiro'></a-marker-camera>
+    <a-marker preset='hiro' id="marker"></a-marker>
+    <a-entity camera></a-entity>
   </a-scene>
 
   <!-- The Modal -->

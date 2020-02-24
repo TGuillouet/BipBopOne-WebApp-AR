@@ -7,16 +7,15 @@ import '@firebase/storage'
 
 import { getUrlParams } from './common/uri'
 import { getFirebaseConfig } from './common/firebaseConfig'
-import ModelFactory from './common/ModelTypes/ModelFactory'
-import FirebaseErrorCode from './common/Errors/FirebaseErrorCode'
-import { getAsset } from './common/api/AssetApi'
+import ModelFactory from './ModelTypes/ModelFactory'
+import FirebaseErrorCode from './Errors/FirebaseErrorCode'
+import { getAsset } from './api/AssetApi'
 
 firebase.initializeApp(getFirebaseConfig())
 
 const frame = document.getElementById('frame')
 const { project, asset } = getUrlParams() // Getting the url's params
 
-// $("#modal").on("")
 
 window.addEventListener("load", () => {
 	document.getElementById('splash').style.display = 'none' // Hide the splash screen
@@ -28,7 +27,10 @@ window.addEventListener("load", () => {
 				name: asset.name,
 				type: asset.type,
 				model: asset.model,
-				material: asset.material
+				material: asset.material,
+				parameters: {
+					scale: "0.2 0.2 0.2"
+				}
 			})
 
 			model.createInFrame(frame) // Create the asset in the frame
