@@ -21,7 +21,7 @@ window.addEventListener('load', async () => {
 	try {
 		await firebase.auth().signInWithEmailAndPassword('thomas.guillouet@edu.itescia.fr', '17tg11J59');
 
-		await handleModelCreation();
+		await handleModelCreation(project, asset);
 
 		await createProjectAssetsDropdownItems(project, "dropdown");
 
