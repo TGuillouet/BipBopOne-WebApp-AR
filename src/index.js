@@ -18,7 +18,7 @@ const { project, asset } = getUrlParams(); // Getting the url's params
 
 window.addEventListener('load', async () => {
 	try {
-		await firebase.auth().signInWithEmailAndPassword('thomas.guillouet@edu.itescia.fr', '17tg11J59');
+		await firebase.auth().signInWithEmailAndPassword(process.env.EMAIL, process.env.PASSWORD);
 
 		await handleModelCreation(project, asset);
 
@@ -29,7 +29,6 @@ window.addEventListener('load', async () => {
 			case "ProjectNotFilled":
 				modalContent.innerText = "The project name need to be filled";
 				break;
-				// ND2rp32W78mWnSAMQ6y4
 			case "AssetNotFilled":
 				modalContent.innerText = "The asset id need to be filled";
 				break;
