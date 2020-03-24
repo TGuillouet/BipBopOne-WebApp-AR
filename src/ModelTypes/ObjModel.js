@@ -15,20 +15,22 @@ export default class ObjModel extends Model {
 		modelAssetItem.setAttribute('src', model);
 		asset.appendChild(modelAssetItem);
 
-		const materialAssetItem = document.createElement('a-asset-item');
-		materialAssetItem.id = `${modelName}-material`;
-		materialAssetItem.setAttribute('src', material);
-		asset.appendChild(materialAssetItem);
+		if (material) {
+			const materialAssetItem = document.createElement('a-asset-item');
+			materialAssetItem.id = `${modelName}-material`;
+			materialAssetItem.setAttribute('src', material);
+			asset.appendChild(materialAssetItem);
+		}
 
 		return asset;
 	}
 
 	createEntity() {
-		const { name: modelName } = this.modelInfos;
+		const { name: modelName, material } = this.modelInfos;
 		let entity = document.createElement('a-obj-model');
 
 		entity.setAttribute('src', `#${modelName}-model`);
-		// entity.setAttribute('mtl', `#${modelName}-material`);
+		if (material) entity.setAttribute('mtl', `#${modelName}-material`);
 
 		return entity;
 	}
