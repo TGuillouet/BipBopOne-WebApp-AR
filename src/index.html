@@ -9,15 +9,23 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.1/css/bulma.min.css" />
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <style>
-        #splash {
+        .arjs-loader {
             position: absolute;
-            width: 100vw;
+            top: 0;
+            left: 0;
+            right: 0;
+
+            /* Center the progressbar */
+            margin-left: auto;
+            margin-right: auto;
+
+            width: 70vw;
             height: 100vh;
-            background-color: black;
+
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 3;
+            flex-direction: column;
         }
 
         #splash p {
@@ -32,8 +40,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
     <!-- we import arjs version without NFT but with marker + location based support -->
-<!--    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>-->
-    <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+<!--    <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>-->
 
     <script defer>
         $(document).ready(function() {
@@ -55,9 +63,6 @@
     <!-- Navbar -->
     <nav class="navbar is-fixed-bottom" role="navigation" aria-label="main navigation" id="menu">
         <div class="navbar-brand">
-            <a class="navbar-item" href="https://bulma.io">
-                <img src="https://bulma.io/images/bulma-logo.png"  width="112" height="28">
-            </a>
             <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -76,8 +81,10 @@
     </nav>
 
     <!-- Loading screen -->
-    <div id="splash">
-        <p>Loading...</p>
+    <div class="arjs-loader container">
+<!--        <div>Loading, please wait...</div>-->
+        <progress class="progress is-small is-primary" max="100"></progress>
+        <p>Chargement des ressources...</p>
     </div>
 
     <!-- Aframe -->

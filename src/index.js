@@ -25,7 +25,7 @@ window.addEventListener('load', async () => {
 
 		await createProjectAssetsDropdownItems(project, "dropdown");
 
-		document.getElementById('splash').style.display = 'none'; // Hide the splash screen
+		document.getElementsByClassName('arjs-loader')[0].style.display = 'none'; // Hide the splash screen
 	} catch(error) {
 		const modalContent = document.querySelector('.modal-content p');
 		switch (error.code) {
