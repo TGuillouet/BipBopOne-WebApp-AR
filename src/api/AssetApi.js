@@ -1,6 +1,6 @@
 import { firebase } from "@firebase/app";
 import "@firebase/firestore";
-import {getDocumentsFromSnapshot} from "./FirestoreApi";
+import {getDocumentsFromSnapshot} from "../common/FirestoreUtils";
 
 export async function getAsset(projectName, assetId) {
     if (!projectName) {

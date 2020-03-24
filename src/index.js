@@ -51,6 +51,12 @@ window.addEventListener('load', async () => {
 	}
 });
 
+/**
+ * Load the 3D model on the a-frame
+ * @param projectId The id of the project in the database
+ * @param assetId The id of the asset in the database
+ * @returns {Promise<void>}
+ */
 async function handleModelCreation(projectId, assetId) {
 	const fetchedAsset = await getAsset(projectId, assetId);
 
@@ -68,6 +74,12 @@ async function handleModelCreation(projectId, assetId) {
 	model.createInFrame(frame); // Create the asset in the frame
 }
 
+/**
+ * Generate all assets in the menu
+ * @param projectId The id of the selected project in the database
+ * @param dropdownId The id of the dropdown HTMLElement
+ * @returns {Promise<void>}
+ */
 async function createProjectAssetsDropdownItems(projectId, dropdownId) {
 	const assetsList = await getAssetsList(projectId);
 
