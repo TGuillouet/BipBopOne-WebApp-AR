@@ -4,7 +4,7 @@
   "main": "src/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "webpack && webpack-dev-server --host 0.0.0.0",
+    "start": "webpack && webpack-dev-server --host 0.0.0.0 --disableHostCheck",
     "build": "webpack",
     "test": "jest"
   },
