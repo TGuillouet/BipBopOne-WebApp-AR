@@ -1,14 +1,16 @@
 import { firebase } from "@firebase/app";
 import "@firebase/firestore";
 import {getDocumentsFromSnapshot} from "../common/FirestoreUtils";
+import ProjectNotFilledError from "../Errors/ProjectNotFilledError";
+import AssetNotFilledError from "../Errors/AssetNotFilledError";
 
 export async function getAsset(projectName, assetId) {
     if (!projectName) {
-        throw new Error("ProjectNotFilled");
+        throw new ProjectNotFilledError();
     }
 
     if (!assetId) {
-        throw new Error("AssetNotFilled");
+        throw new AssetNotFilledError();
     }
 
     let ref = firebase.firestore().collection(`projects`).doc(projectName);
@@ -20,7 +22,7 @@ export async function getAsset(projectName, assetId) {
 
 export async function getAssetsList(projectName) {
     if (!projectName) {
-        throw new Error("ProjectNotFilled");
+        throw new ProjectNotFilledError();
     }
 
     let ref = firebase.firestore().collection(`projects`).doc(projectName);

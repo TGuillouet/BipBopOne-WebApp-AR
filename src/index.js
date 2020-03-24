@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import 'bootstrap';
 
 import { firebase } from '@firebase/app';
@@ -24,8 +23,6 @@ window.addEventListener('load', async () => {
 		await handleModelCreation(project, asset);
 
 		await createProjectAssetsDropdownItems(project, "dropdown");
-
-		document.getElementsByClassName('arjs-loader')[0].style.display = 'none'; // Hide the splash screen
 	} catch(error) {
 		const modalContent = document.querySelector('.modal-content p');
 		switch (error.code) {
@@ -46,8 +43,9 @@ window.addEventListener('load', async () => {
 				modalContent.innerText = "Une erreur inconnue s'est produite, veuillez réessayer plus tard";
 				break;
 		}
-		// $('#myModal').modal('toggle');
 		document.getElementById("errorModal").classList.add("is-active");
+	} finally {
+		document.getElementsByClassName('arjs-loader')[0].style.display = 'none'; // Hide the splash screen
 	}
 });
 
