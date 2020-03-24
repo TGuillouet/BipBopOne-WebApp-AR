@@ -3,11 +3,11 @@ import "@firebase/firestore";
 
 export async function getAsset(projectName, assetId) {
     if (!projectName) {
-        throw new Error("The project name need to be filled");
+        throw new Error("ProjectNotFilled");
     }
 
     if (!assetId) {
-        throw new Error("The asset id need to be filled");
+        throw new Error("AssetNotFilled");
     }
 
     let ref = firebase.firestore().collection(`projects`).doc(projectName);

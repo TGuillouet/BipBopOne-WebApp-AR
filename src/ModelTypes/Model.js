@@ -16,7 +16,7 @@ export default class Model {
 
     createInFrame(frame) {
         frame.appendChild(this.createAsset());
-
+        
         let entity = this.createEntity();
         if (this.modelInfos.parameters) entity = this.applyEntityParameters(entity);
 

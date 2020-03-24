@@ -1,4 +1,4 @@
-import Model from './Model'
+import Model from './Model';
 
 export default class ObjModel extends Model {
 	constructor(modelInfos) {
@@ -8,6 +8,7 @@ export default class ObjModel extends Model {
 	createAsset() {
 		const { name: modelName, model, material } = this.modelInfos;
 		const asset = document.createElement('a-assets');
+		asset.setAttribute('timeout', "40000");
 
 		const modelAssetItem = document.createElement('a-asset-item');
 		modelAssetItem.id = `${modelName}-model`;
@@ -24,9 +25,10 @@ export default class ObjModel extends Model {
 
 	createEntity() {
 		const { name: modelName } = this.modelInfos;
-		const entity = document.createElement('a-entity');
+		let entity = document.createElement('a-obj-model');
 
-		entity.setAttribute('obj-model', `obj: #${modelName}-model; mtl: #${modelName}-mtl`);
+		entity.setAttribute('src', `#${modelName}-model`);
+		// entity.setAttribute('mtl', `#${modelName}-material`);
 
 		return entity;
 	}
