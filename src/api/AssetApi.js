@@ -1,5 +1,6 @@
 import { firebase } from "@firebase/app";
 import "@firebase/firestore";
+import {getDocumentsFromSnapshot} from "./FirestoreApi";
 
 export async function getAsset(projectName, assetId) {
     if (!projectName) {
@@ -16,3 +17,12 @@ export async function getAsset(projectName, assetId) {
         return assetData;
     });
 }
+
+export async function getAssetsList(projectName) {
+    if (!projectName) {
+        throw new Error("ProjectNotFilled");
+    }
+
+    let ref = firebase.firestore().collection(`projects`).doc(projectName);
+    return  ref.collection("assets").where("visible", "==", true).get().then(getDocumentsFromSnapshot);
+};
