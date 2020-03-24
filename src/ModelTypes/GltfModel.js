@@ -35,9 +35,9 @@ export default class GltfModel extends Model {
      */
     createEntity() {
         const { name: modelName } = this.modelInfos;
-        const entity = document.createElement("a-entity");
+        const entity = document.createElement("a-gltf-model");
     
-        entity.setAttribute("gltf-model", `##${modelName}-model`);
+        entity.setAttribute("src", `#${modelName}-model`);
 
         return entity;
     }
