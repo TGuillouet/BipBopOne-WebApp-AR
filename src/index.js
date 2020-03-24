@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import 'bootstrap';
 
 import { firebase } from '@firebase/app';
@@ -24,8 +23,6 @@ window.addEventListener('load', async () => {
 		await handleModelCreation(project, asset);
 
 		await createProjectAssetsDropdownItems(project, "dropdown");
-
-		document.getElementsByClassName('arjs-loader')[0].style.display = 'none'; // Hide the splash screen
 	} catch(error) {
 		const modalContent = document.querySelector('.modal-content p');
 		switch (error.code) {
@@ -46,11 +43,18 @@ window.addEventListener('load', async () => {
 				modalContent.innerText = "Une erreur inconnue s'est produite, veuillez réessayer plus tard";
 				break;
 		}
-		// $('#myModal').modal('toggle');
 		document.getElementById("errorModal").classList.add("is-active");
+	} finally {
+		document.getElementsByClassName('arjs-loader')[0].style.display = 'none'; // Hide the splash screen
 	}
 });
 
+/**
+ * Load the 3D model on the a-frame
+ * @param projectId The id of the project in the database
+ * @param assetId The id of the asset in the database
+ * @returns {Promise<void>}
+ */
 async function handleModelCreation(projectId, assetId) {
 	const fetchedAsset = await getAsset(projectId, assetId);
 
@@ -68,6 +72,12 @@ async function handleModelCreation(projectId, assetId) {
 	model.createInFrame(frame); // Create the asset in the frame
 }
 
+/**
+ * Generate all assets in the menu
+ * @param projectId The id of the selected project in the database
+ * @param dropdownId The id of the dropdown HTMLElement
+ * @returns {Promise<void>}
+ */
 async function createProjectAssetsDropdownItems(projectId, dropdownId) {
 	const assetsList = await getAssetsList(projectId);
 

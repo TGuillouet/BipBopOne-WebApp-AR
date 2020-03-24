@@ -1,10 +1,21 @@
 import Model from "./Model";
 
+/**
+ * Represent a .gltf asset
+ */
 export default class GltfModel extends Model {
+    /**
+     * Create a gltf model
+     * @param modelInfos
+     */
     constructor(modelInfos) {
         super(modelInfos);
     }
 
+    /**
+     * Create the asset that can be loaded by a-frame
+     * @returns {HTMLElement} The asset element
+     */
     createAsset() {
         const { name: modelName, type } = this.modelInfos;
 
@@ -17,7 +28,11 @@ export default class GltfModel extends Model {
     
         return asset;
     }
-    
+
+    /**
+     * Create the entity that can be displayed by a-frame
+     * @returns {HTMLElement}
+     */
     createEntity() {
         const { name: modelName } = this.modelInfos;
         const entity = document.createElement("a-entity");

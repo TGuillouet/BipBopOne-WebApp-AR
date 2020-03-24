@@ -1,10 +1,22 @@
 import Model from './Model';
 
+/**
+ * Represent a .obj asset
+ */
 export default class ObjModel extends Model {
+
+	/**
+	 * Create an obj model
+	 * @param modelInfos
+	 */
 	constructor(modelInfos) {
 		super(modelInfos);
 	}
 
+	/**
+	 * Create the assets list that can be loaded by a-frame
+	 * @returns {HTMLElement} The asset element
+	 */
 	createAsset() {
 		const { name: modelName, model, material } = this.modelInfos;
 		const asset = document.createElement('a-assets');
@@ -25,6 +37,10 @@ export default class ObjModel extends Model {
 		return asset;
 	}
 
+	/**
+	 * Create the entity that can be displayed by a-frame
+	 * @returns {HTMLElement}
+	 */
 	createEntity() {
 		const { name: modelName, material } = this.modelInfos;
 		let entity = document.createElement('a-obj-model');

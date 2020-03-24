@@ -1,4 +1,4 @@
-import {getDocumentsFromSnapshot} from "../api/FirestoreApi";
+import {getDocumentsFromSnapshot} from "../common/FirestoreUtils";
 import {FirestoreSnapshotMock} from "./Mocks";
 
 
