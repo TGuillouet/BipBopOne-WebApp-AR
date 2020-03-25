@@ -29,7 +29,9 @@ jobs:
       FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
       FIREBASE_MESSENGING_SENDER_ID: ${{ secrets.FIREBASE_MESSENGING_SENDER_ID }}
       FIREBASE_APP_ID: ${{ secrets.FIREBASE_MESSENGING_SENDER_ID }}
-      FIREBASE_MEASUREMENT_ID: ${{ secrets.FIREBASE_MEASUREMENT_ID }}
+
+      EMAIL: ${{ secrets.EMAIL }}
+      PASSWORD: ${{ secrets.PASSWORD }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
