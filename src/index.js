@@ -9,7 +9,7 @@ import { getUrlParams } from './common/uri';
 import { getFirebaseConfig } from './common/firebaseConfig';
 import ModelFactory from './ModelTypes/ModelFactory';
 import FirebaseErrorCode from './Errors/FirebaseErrorCode';
-import {getAsset, getAssetsList} from './api/AssetApi'
+import {getAsset, getVisibleAssetsList} from './api/AssetApi'
 
 firebase.initializeApp(getFirebaseConfig());
 
@@ -78,7 +78,7 @@ async function handleModelCreation(projectId, assetId) {
  * @returns {Promise<void>}
  */
 async function createProjectAssetsDropdownItems(projectId, dropdownId) {
-	const assetsList = await getAssetsList(projectId);
+	const assetsList = await getVisibleAssetsList(projectId);
 
 	const elements = assetsList.map(assetItem => {
 		const element = document.createElement("a");

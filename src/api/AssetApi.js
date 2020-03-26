@@ -26,7 +26,12 @@ export async function getAsset(userId, projectId, assetId) {
     });
 }
 
-export async function getAssetsList(projectId) {
+/**
+ * Get the list of visible assets for a project
+ * @param projectId The id of the project
+ * @returns {Promise<firebase.firestore.QuerySnapshot<T>>}
+ */
+export async function getVisibleAssetsList(projectId) {
     if (!projectId) {
         throw new ProjectNotFilledError();
     }
