@@ -4,8 +4,15 @@ import {getDocumentsFromSnapshot} from "../common/FirestoreUtils";
 import ProjectNotFilledError from "../Errors/ProjectNotFilledError";
 import AssetNotFilledError from "../Errors/AssetNotFilledError";
 
-export async function getAsset(projectName, assetId) {
-    if (!projectName) {
+/**
+ * Ge an asset from the database
+ * @param userId The id of te user in the database
+ * @param projectId The id of the project in the database
+ * @param assetId The id of the asset in the database
+ * @returns {Promise<T>}
+ */
+export async function getAsset(userId, projectId, assetId) {
+    if (!projectId) {
         throw new ProjectNotFilledError();
     }
 
@@ -13,18 +20,16 @@ export async function getAsset(projectName, assetId) {
         throw new AssetNotFilledError();
     }
 
-    let ref = firebase.firestore().collection(`projects`).doc(projectName);
-    return  ref.collection("assets").doc(assetId).get().then((asset) => {
+    return  firebase.firestore().collection("assets").doc(assetId).get().then((asset) => {
         let assetData = asset.data();
         return assetData;
     });
 }
 
-export async function getAssetsList(projectName) {
-    if (!projectName) {
+export async function getAssetsList(projectId) {
+    if (!projectId) {
         throw new ProjectNotFilledError();
     }
 
-    let ref = firebase.firestore().collection(`projects`).doc(projectName);
-    return  ref.collection("assets").where("visible", "==", true).get().then(getDocumentsFromSnapshot);
-};
+    return  firebase.firestore().collection("assets").where("projectId","==", projectId).where("visible", "==", true).get().then(getDocumentsFromSnapshot);
+}
