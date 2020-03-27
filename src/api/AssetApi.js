@@ -11,11 +11,7 @@ import AssetNotFilledError from "../Errors/AssetNotFilledError";
  * @param assetId The id of the asset in the database
  * @returns {Promise<T>}
  */
-export async function getAsset(userId, projectId, assetId) {
-    if (!projectId) {
-        throw new ProjectNotFilledError();
-    }
-
+export async function getAsset(assetId) {
     if (!assetId) {
         throw new AssetNotFilledError();
     }

@@ -14,15 +14,17 @@ import {getAsset, getVisibleAssetsList} from './api/AssetApi'
 firebase.initializeApp(getFirebaseConfig());
 
 const frame = document.getElementById('frame');
-const { project, asset } = getUrlParams(); // Getting the url's params
+const { asset } = getUrlParams(); // Getting the url's params
 
 window.addEventListener('load', async () => {
 	try {
 		await firebase.auth().signInWithEmailAndPassword(process.env.EMAIL, process.env.PASSWORD);
 
-		await handleModelCreation(project, asset);
+		const fetchedAsset = await getAsset(asset);
 
-		await createProjectAssetsDropdownItems(project, "dropdown");
+		await displayModel(fetchedAsset);
+
+		await createProjectAssetsDropdownItems(fetchedAsset.projectId, "dropdown");
 	} catch(error) {
 		const modalContent = document.querySelector('.modal-content p');
 		switch (error.code) {
@@ -54,15 +56,13 @@ window.addEventListener('load', async () => {
  * @param assetId The id of the asset in the database
  * @returns {Promise<void>}
  */
-async function handleModelCreation(projectId, assetId) {
-	const fetchedAsset = await getAsset(projectId, assetId);
-
+async function displayModel(asset) {
 	// Load the model from the result fetched in the database
 	const model = new ModelFactory().makeModel({
-		name: fetchedAsset.name,
-		type: fetchedAsset.type,
-		model: fetchedAsset.model,
-		material: fetchedAsset.material,
+		name: asset.name,
+		type: asset.type,
+		model: asset.model,
+		material: asset.material,
 		parameters: {
 			scale: '0.2 0.2 0.2'
 		}
@@ -83,7 +83,7 @@ async function createProjectAssetsDropdownItems(projectId, dropdownId) {
 	const elements = assetsList.map(assetItem => {
 		const element = document.createElement("a");
 		element.innerText = assetItem.name;
-		element.href = `/?project=${project}&asset=${assetItem.id}`;
+		element.href = `/?asset=${assetItem.id}`;
 		element.classList.add("navbar-item");
 		if (assetItem.id === asset) element.classList.add("is-active");
 		return element;
