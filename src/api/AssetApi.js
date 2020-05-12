@@ -6,8 +6,6 @@ import AssetNotFilledError from "../Errors/AssetNotFilledError";
 
 /**
  * Ge an asset from the database
- * @param userId The id of te user in the database
- * @param projectId The id of the project in the database
  * @param assetId The id of the asset in the database
  * @returns {Promise<T>}
  */
@@ -25,7 +23,7 @@ export async function getAsset(assetId) {
 /**
  * Get the list of visible assets for a project
  * @param projectId The id of the project
- * @returns {Promise<firebase.firestore.QuerySnapshot<T>>}
+ * @returns {Promise<T[]>}
  */
 export async function getVisibleAssetsList(projectId) {
     if (!projectId) {

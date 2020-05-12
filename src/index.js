@@ -14,15 +14,15 @@ import {getAsset, getVisibleAssetsList} from './api/AssetApi'
 firebase.initializeApp(getFirebaseConfig());
 
 const frame = document.getElementById('frame');
-const { asset } = getUrlParams(); // Getting the url's params
+const { asset: assetId } = getUrlParams(); // Getting the url's params
 
 window.addEventListener('load', async () => {
 	try {
 		await firebase.auth().signInWithEmailAndPassword(process.env.EMAIL, process.env.PASSWORD);
 
-		const fetchedAsset = await getAsset(asset);
+		const fetchedAsset = await getAsset(assetId);
 
-		await displayModel(fetchedAsset);
+		displayModel(fetchedAsset);
 
 		await createProjectAssetsDropdownItems(fetchedAsset.projectId, "dropdown");
 	} catch(error) {
@@ -52,11 +52,9 @@ window.addEventListener('load', async () => {
 
 /**
  * Load the 3D model on the a-frame
- * @param projectId The id of the project in the database
- * @param assetId The id of the asset in the database
- * @returns {Promise<void>}
+ * @param asset The asset to display
  */
-async function displayModel(asset) {
+function displayModel(asset) {
 	// Load the model from the result fetched in the database
 	const model = new ModelFactory().makeModel({
 		name: asset.name,
@@ -85,7 +83,7 @@ async function createProjectAssetsDropdownItems(projectId, dropdownId) {
 		element.innerText = assetItem.name;
 		element.href = `/?asset=${assetItem.id}`;
 		element.classList.add("navbar-item");
-		if (assetItem.id === asset) element.classList.add("is-active");
+		if (assetItem.id === assetId) element.classList.add("is-active");
 		return element;
 	});
 
