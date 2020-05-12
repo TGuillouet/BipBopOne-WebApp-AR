@@ -9,20 +9,22 @@ import { getUrlParams } from './common/uri';
 import { getFirebaseConfig } from './common/firebaseConfig';
 import ModelFactory from './ModelTypes/ModelFactory';
 import FirebaseErrorCode from './Errors/FirebaseErrorCode';
-import {getAsset, getAssetsList} from './api/AssetApi'
+import {getAsset, getVisibleAssetsList} from './api/AssetApi'
 
 firebase.initializeApp(getFirebaseConfig());
 
 const frame = document.getElementById('frame');
-const { project, asset } = getUrlParams(); // Getting the url's params
+const { asset: assetId } = getUrlParams(); // Getting the url's params
 
 window.addEventListener('load', async () => {
 	try {
 		await firebase.auth().signInWithEmailAndPassword(process.env.EMAIL, process.env.PASSWORD);
 
-		await handleModelCreation(project, asset);
+		const fetchedAsset = await getAsset(assetId);
 
-		await createProjectAssetsDropdownItems(project, "dropdown");
+		displayModel(fetchedAsset);
+
+		await createProjectAssetsDropdownItems(fetchedAsset.projectId, "dropdown");
 	} catch(error) {
 		const modalContent = document.querySelector('.modal-content p');
 		switch (error.code) {
@@ -50,19 +52,15 @@ window.addEventListener('load', async () => {
 
 /**
  * Load the 3D model on the a-frame
- * @param projectId The id of the project in the database
- * @param assetId The id of the asset in the database
- * @returns {Promise<void>}
+ * @param asset The asset to display
  */
-async function handleModelCreation(projectId, assetId) {
-	const fetchedAsset = await getAsset(projectId, assetId);
-
+function displayModel(asset) {
 	// Load the model from the result fetched in the database
 	const model = new ModelFactory().makeModel({
-		name: fetchedAsset.name,
-		type: fetchedAsset.type,
-		model: fetchedAsset.model,
-		material: fetchedAsset.material,
+		name: asset.name,
+		type: asset.type,
+		model: asset.model,
+		material: asset.material,
 		parameters: {
 			scale: '0.2 0.2 0.2'
 		}
@@ -78,14 +76,14 @@ async function handleModelCreation(projectId, assetId) {
  * @returns {Promise<void>}
  */
 async function createProjectAssetsDropdownItems(projectId, dropdownId) {
-	const assetsList = await getAssetsList(projectId);
+	const assetsList = await getVisibleAssetsList(projectId);
 
 	const elements = assetsList.map(assetItem => {
 		const element = document.createElement("a");
 		element.innerText = assetItem.name;
-		element.href = `/?project=${project}&asset=${assetItem.id}`;
+		element.href = `/?asset=${assetItem.id}`;
 		element.classList.add("navbar-item");
-		if (assetItem.id === asset) element.classList.add("is-active");
+		if (assetItem.id === assetId) element.classList.add("is-active");
 		return element;
 	});
 
