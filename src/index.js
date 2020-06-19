@@ -18,6 +18,7 @@ const { asset: assetId } = getUrlParams(); // Getting the url's params
 
 window.addEventListener('load', async () => {
 	try {
+		console.log("Trigger actions");
 		await firebase.auth().signInWithEmailAndPassword(process.env.EMAIL, process.env.PASSWORD);
 
 		const fetchedAsset = await getAsset(assetId);
