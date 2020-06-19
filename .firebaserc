@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "bipbopone"
+  },
+  "targets": {
+    "bipbopone": {
+      "hosting": {
+        "webar": [
+          "bipbopone"
+        ]
+      }
+    }
   }
 }
